@@ -16,4 +16,18 @@ public class Library {
         books.put(isbn, book);
         return true;
     }
+
+    // Borrow a book from the library
+    public boolean borrowBook(String isbn) {
+        Map<String, Object> book = books.get(isbn);
+        if (book == null) {
+            return false; // Book that user wants to borrow is not found
+        }
+        Boolean isBorrowed = (Boolean) book.getOrDefault("isBorrowed", false);
+        if (!isBorrowed) {
+            book.put("isBorrowed", true);
+            return true;
+        }
+        return false; // Book is already borrowed
+    }
 }

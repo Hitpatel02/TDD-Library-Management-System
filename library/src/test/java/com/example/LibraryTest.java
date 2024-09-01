@@ -1,8 +1,6 @@
 package com.example;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.*;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.Before;
@@ -41,6 +39,26 @@ public class LibraryTest {
         Map<String, Object> book2 = createBook("978-0134685991", "Effective Java (2nd Copy)", "Joshua Bloch", 2018);
 
         boolean success = library.addBook(book2);
+        assertFalse(success);
+    }
+
+    @Test
+    public void borrowBookTest() {
+        addBookTest();
+        boolean success = library.borrowBook("978-0134685991");
+        assertTrue(success);
+    }
+
+    @Test
+    public void borrowBookAlreadyBorrowedTest() {
+        borrowBookTest();
+        boolean success = library.borrowBook("978-0134685991");
+        assertFalse(success);
+    }
+
+    @Test
+    public void borrowBookNotInListTest() {
+        boolean success = library.borrowBook("123-4567890123"); // Non-existing ISBN
         assertFalse(success);
     }
 }
