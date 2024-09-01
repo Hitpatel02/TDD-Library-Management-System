@@ -61,4 +61,18 @@ public class LibraryTest {
         boolean success = library.borrowBook("123-4567890123"); // Non-existing ISBN
         assertFalse(success);
     }
+
+    @Test
+    public void returnBookTest() {
+        borrowBookTest();
+        boolean success = library.returnBook("978-0134685991");
+        assertTrue(success);
+    }
+
+    @Test
+    public void returnBookNotBorrowedTest() {
+        addBookTest();
+        boolean success = library.returnBook("978-0134685991");
+        assertFalse(success);
+    }
 }

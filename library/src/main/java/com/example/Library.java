@@ -21,7 +21,7 @@ public class Library {
     public boolean borrowBook(String isbn) {
         Map<String, Object> book = books.get(isbn);
         if (book == null) {
-            return false; // Book that user wants to borrow is not found
+            return false; // Book that user wants to borrow is not found or book doesn't exist in library.
         }
         Boolean isBorrowed = (Boolean) book.getOrDefault("isBorrowed", false);
         if (!isBorrowed) {
@@ -29,5 +29,19 @@ public class Library {
             return true;
         }
         return false; // Book is already borrowed
+    }
+
+    // Return a borrowed book to the library
+    public boolean returnBook(String isbn) {
+        Map<String, Object> book = books.get(isbn);
+        if (book == null) {
+            return false; // Did the book that a person wants to return previously exist in the library
+        }
+        Boolean isBorrowed = (Boolean) book.get("isBorrowed");
+        if (isBorrowed != null && isBorrowed) {
+            book.put("isBorrowed", false);
+            return true;
+        }
+        return false; // Book was not borrowed that means it can't be returned
     }
 }
