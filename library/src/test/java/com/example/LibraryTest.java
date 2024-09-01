@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
+import java.util.Collection;
 
 public class LibraryTest {
 
@@ -74,5 +75,12 @@ public class LibraryTest {
         addBookTest();
         boolean success = library.returnBook("978-0134685991");
         assertFalse(success);
+    }
+
+    @Test
+    public void viewAvailableBooksTest() {
+        addBookTest();
+        Collection<Map<String, Object>> availableBooks = library.viewAvailableBooks();
+        assertEquals(1, availableBooks.size());
     }
 }

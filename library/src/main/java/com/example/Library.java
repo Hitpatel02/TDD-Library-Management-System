@@ -2,6 +2,7 @@ package com.example;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Collection;
 
 public class Library {
 
@@ -43,5 +44,17 @@ public class Library {
             return true;
         }
         return false; // Book was not borrowed that means it can't be returned
+    }
+
+    // View all available books in the library
+    public Collection<Map<String, Object>> viewAvailableBooks() {
+        Map<String, Map<String, Object>> availableBooks = new HashMap<>();
+        for (Map.Entry<String, Map<String, Object>> entry : books.entrySet()) {
+            Boolean isBorrowed = (Boolean) entry.getValue().getOrDefault("isBorrowed", false);
+            if (!isBorrowed) {
+                availableBooks.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return availableBooks.values();
     }
 }
